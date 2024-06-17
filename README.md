@@ -1,6 +1,6 @@
 <div align="center">
-  
-# [Template-Project.](Repository-URL) <img src="Icon-Image-URL"  width="3%" height="3%">
+
+# [Google Gemini.](https://github.com/BrenoFariasdaSilva/Worked-Example-Miner/tree/main/Gemini)  <img src="https://github.com/devicons/devicon/blob/master/icons/python/python-original.svg"  width="3%" height="3%">
 
 </div>
 
@@ -8,194 +8,204 @@
   
 ---
 
-Project-Description.
-  
+Welcome to the Google Gemini API integration directory, in which you will find the script used to interact with the Google Gemini API.
+
 ---
 
 </div>
 
-<div align="center">
-
-![GitHub Code Size in Bytes](https://img.shields.io/github/languages/code-size/BrenoFariasdaSilva/Template-Project)
-![GitHub Commits](https://img.shields.io/github/commit-activity/t/BrenoFariasDaSilva/Template-Project/main)
-![GitHub Last Commit](https://img.shields.io/github/last-commit/BrenoFariasdaSilva/Template-Project)
-![GitHub Forks](https://img.shields.io/github/forks/BrenoFariasDaSilva/Template-Project)
-![GitHub Language Count](https://img.shields.io/github/languages/count/BrenoFariasDaSilva/Template-Project)
-![GitHub License](https://img.shields.io/github/license/BrenoFariasdaSilva/Template-Project)
-![GitHub Stars](https://img.shields.io/github/stars/BrenoFariasdaSilva/Template-Project)
-![wakatime](https://wakatime.com/badge/github/BrenoFariasdaSilva/Template-Project.svg)
-
-</div>
-
-<div align="center">
-  
-![RepoBeats Statistics](RepoBeats-SVG-URL "Repobeats analytics image")
-
-</div>
-
-## Table of Contents
-- [Template-Project. ](#template-project-)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Requirements](#requirements)
+- [Google Gemini.  ](#google-gemini--)
+  - [Important Notes](#important-notes)
   - [Setup](#setup)
-    - [Clone the repository](#clone-the-repository)
-  - [Installation:](#installation)
-  - [Run Programing Language Code:](#run-programing-language-code)
-    - [Dependencies](#dependencies)
-    - [Dataset - Optional](#dataset---optional)
-  - [Usage](#usage)
-  - [Results - Optional](#results---optional)
+    - [Python and Pip](#python-and-pip)
+      - [Linux](#linux)
+      - [MacOS](#macos)
+      - [Windows](#windows)
+    - [Requirements](#requirements)
+    - [Cleaning Up](#cleaning-up)
+  - [How to use](#how-to-use)
+    - [gemini\_script](#gemini_script)
+      - [Configuration](#configuration)
+      - [Run](#run)
+      - [Workflow](#workflow)
+  - [Generated Data](#generated-data)
   - [Contributing](#contributing)
-  - [Collaborators](#collaborators)
   - [License](#license)
-    - [Apache License 2.0](#apache-license-20)
-    - [Creative Commons Zero v1.0 Universal (CC0 1.0)](#creative-commons-zero-v10-universal-cc0-10)
-    - [MIT License](#mit-license)
 
+## Important Notes
 
-## Introduction
-
-Detailed project description.
-
-## Requirements
-
-Bullet points of the requirements.
+- Make sure you don't have whitespaces in the path of the project, otherwise it will not work.
+- To enhance the readability of the code, please note that the files adhere to a Bottom-Up approach in function ordering. This means that each function is defined above the function that calls it.
+- All of the Scripts have a `Makefile`that handles virtual environment creation, dependencies installation and script execution. You can run the scripts by using the `make` command, as shown in the `How to use` section.
 
 ## Setup
 
-### Clone the repository
+This section provides instructions for installing the Python Language and Pip Python package manager, as well as the project's dependencies. It also explains how to run the scripts using the provided `makefile`. The `makefile` automates the process of creating a virtual environment, installing dependencies, and running the scripts.
 
-1. Clone the repository with the following command:
+### Python and Pip
 
-```bash
-git clone https://github.com/BrenoFariasDaSilva/Template-Project.git
-cd Template-Project
+In order to run the scripts, you must have python3 and pip installed in your machine. If you don't have it installed, you can use the following commands to install it:
+
+#### Linux
+
+In order to install python3 and pip in Linux, you can use the following commands:
+
+```
+sudo apt install python3 -y
+sudo apt install python3-pip -y
 ```
 
-## Installation:
-* Programing Language:
+#### MacOS
 
-	* Manually:
-		```bash
-		# Programing Language:
-		sudo apt install program-language -y
-		```
+In order to install python3 and pip in MacOS, you can use the following commands:
 
-  * Using Makefile:
-    ```bash
-    make install
+```
+brew install python3
+```
+
+#### Windows
+
+In order to install python3 and pip in Windows, you can use the following commands in case you have `choco` installed:
+
+```
+choco install python3
+```
+
+Or just download the installer from the [official website](https://www.python.org/downloads/).
+
+Great, you now have python3 and pip installed. Now, we need to install the project requirements/dependencies.
+
+### Requirements
+
+This project depends on the following libraries:
+
+- [Gemini GenAI](https://pypi.org/project/google-generativeai/) -> Gemini, now called Google GenerativeAI, is the core of this project. It analyzes candidates to generate worked examples for Software Engineering course classes.
+- [Python dotenv Module](https://pypi.org/project/python-dotenv/) -> Used for loading environment variables from `.env` files, crucial for reading the Google GenerativeAI API Key.
+- [Colorama](https://pypi.org/project/colorama/) -> For adding color and style to terminal outputs, enhancing the readability of command-line feedback.
+- Standard Libraries:
+    - [atexit](https://docs.python.org/3/library/atexit.html) -> For executing cleanup functions when the program terminates.
+    - [os](https://docs.python.org/3/library/os.html) -> For interacting with the operating system, like running terminal commands.
+    - [sys](https://docs.python.org/3/library/sys.html) -> For accessing system-specific parameters and functions, such as exiting the program.
+    - [platform](https://docs.python.org/3/library/platform.html) -> For obtaining the name of the operating system.
+
+Futhermore, this project requires a virtual environment to ensure all dependencies are installed and managed in an isolated manner. A virtual environment is a self-contained directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages. Using a virtual environment helps avoid conflicts between project dependencies and system-wide Python packages. 
+
+To set up and use a virtual environment for this project, we leverage Python's built-in `venv` module. The `makefile` included with the project automates the process of creating a virtual environment, installing the necessary dependencies, and running scripts within this environment.
+
+Follow these steps to prepare your environment:
+
+1. **Create and Activate the Virtual Environment:** 
+   
+   The project uses a `makefile` to streamline the creation and activation of a virtual environment named `venv`. This environment is where all required packages, such as `Gemini` and `Python-dotenv` will be installed.
+This will also be handled by the `Makefile` during the dependencies installation process, so no command must be executed in order to create the virtual environment.
+
+1. **Install Dependencies:** 
+   
+   Run the following command to set up the virtual environment and install all necessary dependencies on it:
+
+    ```
+    make dependencies
     ```
 
-  * Using ShellScript:
-    ```bash
-    chmod +x install.sh
-    sudo ./install.sh
-    ```  
+   This command performs the following actions:
+  - Creates a new virtual environment by running `python3 -m venv venv`.
+  - Installs the project's dependencies within the virtual environment using `pip` based on the `requirements.txt` file. The `requirements.txt` file contains a list of all required packages and their versions. This is the recommended way to manage dependencies in Python projects, as it allows for consistent and reproducible installations across different environments.
 
-## Run Programing Language Code:
-```bash
-# Command here 
+      If you need to manually activate the virtual environment, you can do so by running the following command:
+
+      ```
+      source venv/bin/activate
+      ```
+
+2. **Running Scripts:**
+   
+   The `makefile` also defines commands to run every script with the virtual environment's Python interpreter. For example, to run the `gemini.py` file, use:
+
+   ```
+   make gemini_script
+   ```
+
+   This ensures that the script runs using the Python interpreter and packages installed in the `venv` directory.
+
+3. **Generate the requirements.txt file:**
+
+   If you changed the project dependencies and want to update the `requirements.txt` file, you can run the following command:
+
+   ```
+   make generate_requirements
+   ```
+
+   This command will generate the `requirements.txt` file in the root of the tool directory (`Gemini/`), which will contain all the dependencies used in the virtual environment of the project.
+
+### Cleaning Up
+
+To clean your project directory from the virtual environment and Python cache files, use the `clean` rule defined in the `makefile`:
+
+```
+make clean
 ```
 
-### Dependencies
+This command removes the `venv` directory and deletes any cached Python files in the project directory, helping maintain a clean workspace.
 
-1. Install the project dependencies with the following command:
+By following these instructions, you'll ensure that all project dependencies are correctly managed and isolated, leading to a more stable and consistent development environment.
+	
+## How to use
 
-```bash
-make dependencies
+In order to use the makefile rules, you must be in the `Gemini/` directory.
+
+### gemini_script
+
+This script is used to interact with the Google Gemini API given a input specified in the `context_message` variable and the result will be written in the `Gemini/Outputs/` directory. 
+
+#### Configuration
+
+In order to run this code as you want, you must modify the following constants:
+
+1. `VERBOSE` If you want to see the progress bar and the print statements, you must set the `VERBOSE` constant to `True`. If not, then a more clean output will be shown, with only the progress bar of the script execution, which is the default value of the `VERBOSE` constant.
+2. `context_message` This variable is the message that will be sent to the Gemini API. You can modify it as you want, but it must be a string. 
+
+#### Run
+
+Now that you have set the constants, you can run the following command to execute the `gemini.py` file:
+
+```
+make gemini_script
 ```
 
-### Dataset - Optional
+#### Workflow
 
-1. Download the dataset from [WEBSITE-HERE]() and place it in this project directory `(/Template-Project)` and run the following command:
+1. **Check for Whitespaces in Project Path:**
+   - The script initially verifies if there are any whitespaces in the project path. If detected, it halts the process.
 
-```bash
-make dataset
-```
+2. **Verify `.env` File:**
+   - Calls `verify_env_file()` to ensure the existence of the `.env` file containing the required `GEMINI_API_KEY`.
+   - If either the `.env` file or the key is missing, the script terminates.
 
-## Usage
+3. **Configure the Generative AI Model:**
+   - Invokes `configure_model()` to set up the Google Generative AI model using the API key obtained from the `.env` file.
+   - This step involves configuring the model with parameters such as temperature, top_p, top_k, and max_output_tokens.
 
-In order to run the project, run the following command:
+4. **Start Chat Session with Model:**
+   - Prepares an initial message for the chat session, explaining the format and content of the CSV data.
+   - Initiates a chat session with the AI model using `start_chat_session()` and the initial message.
 
-```bash
-make run
-```
+5. **Send Task Messages to the Model:**
+   - Dispatches the `task_message` to the model, instructing it on the required tasks. The model generates corresponding outputs.
 
-## Results - Optional
+6. **Print and Save Outputs:**
+   - Utilizes `write_output_to_file()` to preserve the AI model's responses in the specified output file (`OUTPUT_FILE`).
 
-Discuss the results obtained in the project.
+7. **Play Sound on Completion:**
+   - Upon script completion, triggers a notification sound using the `play_sound()` function, registered with `atexit`.
+
+## Generated Data
+
+The outputs of the scripts are stored in the `Gemini/Outputs/` directory.
 
 ## Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**. If you have suggestions for improving the code, your insights will be highly welcome.
-In order to contribute to this project, please follow the guidelines below or read the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details on how to contribute to this project, as it contains information about the commit standards and the entire pull request process.
-Please follow these guidelines to make your contributions smooth and effective:
-
-1. **Set Up Your Environment**: Ensure you've followed the setup instructions in the [Setup](#setup) section to prepare your development environment.
-
-2. **Make Your Changes**:
-   - **Create a Branch**: `git checkout -b feature/YourFeatureName`
-   - **Implement Your Changes**: Make sure to test your changes thoroughly.
-   - **Commit Your Changes**: Use clear commit messages, for example:
-     - For new features: `git commit -m "FEAT: Add some AmazingFeature"`
-     - For bug fixes: `git commit -m "FIX: Resolve Issue #123"`
-     - For documentation: `git commit -m "DOCS: Update README with new instructions"`
-     - For refactorings: `git commit -m "REFACTOR: Enhance component for better aspect"`
-     - For snapshots: `git commit -m "SNAPSHOT: Temporary commit to save the current state for later reference"`
-   - See more about crafting commit messages in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
-
-3. **Submit Your Contribution**:
-   - **Push Your Changes**: `git push origin feature/YourFeatureName`
-   - **Open a Pull Request (PR)**: Navigate to the repository on GitHub and open a PR with a detailed description of your changes.
-
-4. **Stay Engaged**: Respond to any feedback from the project maintainers and make necessary adjustments to your PR.
-
-5. **Celebrate**: Once your PR is merged, celebrate your contribution to the project!
-
-## Collaborators
-
-We thank the following people who contributed to this project:
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="#" title="defina o titulo do link">
-        <img src="https://github.com/BrenoFariasdaSilva/Template-Project/blob/main/.assets/Images/Github.svg" width="100px;" alt="My Profile Picture"/><br>
-        <sub>
-          <b>Breno Farias da Silva</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="#" title="defina o titulo do link">
-        <img src="https://github.com/BrenoFariasdaSilva/Template-Project/blob/main/.assets/Images/Github.svg" width="100px;" alt="My Profile Picture"/><br>
-        <sub>
-          <b>Breno Farias da Silva</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="#" title="defina o titulo do link">
-        <img src="https://github.com/BrenoFariasdaSilva/Template-Project/blob/main/.assets/Images/Github.svg" width="100px;" alt="My Profile Picture"/><br>
-        <sub>
-          <b>Breno Farias da Silva</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
+If you want to contribute to this project, please read the Contributing section of the [Main README](../README.md) file, as well as the [CONTRIBUTING](../CONTRIBUTING.md) file in this repository.
 
 ## License
 
-### Apache License 2.0
-
-This project is licensed under the [Apache License 2.0](LICENSE). This license permits use, modification, distribution, and sublicense of the code for both private and commercial purposes, provided that the original copyright notice and a disclaimer of warranty are included in all copies or substantial portions of the software. It also requires a clear attribution back to the original author(s) of the repository. For more details, see the [LICENSE](LICENSE) file in this repository.
-
-### Creative Commons Zero v1.0 Universal (CC0 1.0)
-
-This project is licensed under the [Creative Commons Zero v1.0 Universal](LICENSE) (CC0 1.0) Public Domain Dedication. This means that the work is released into the public domain, allowing anyone to use, modify, distribute, and perform the work, even for commercial purposes, without asking permission and without attributing the original author(s). However, it's appreciated if you include a copy of the license or a link to it in any significant use or distribution. For more details, see the [LICENSE](LICENSE) file in this repository.
-
-### MIT License
-
-This project is licensed under the [MIT License](LICENSE). The MIT License is a permissive license that is short and to the point. It lets people do anything they want with your code as long as they provide attribution back to you and don’t hold you liable. This license allows for commercial use, modification, distribution, private use, and sublicensing. See the [LICENSE](LICENSE) file in this repository for more details.
+This project is licensed under the [Apache License 2.0](../LICENSE). This license permits use, modification, distribution, and sublicense of the code for both private and commercial purposes, provided that the original copyright notice and a disclaimer of warranty are included in all copies or substantial portions of the software. It also requires a clear attribution back to the original author(s) of the repository. For more details, see the [LICENSE](../LICENSE) file in this repository.
