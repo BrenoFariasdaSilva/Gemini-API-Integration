@@ -29,8 +29,7 @@ ENV_VARIABLE = "GEMINI_API_KEY" # The environment variable to load
 
 # File Path Constants:
 INPUT_DIRECTORY = "./Inputs/" # The path to the input directory
-INPUT_FILE = f"{INPUT_DIRECTORY}input_1.txt" # The path to the input file
-INPUT_FILE_2 = f"{INPUT_DIRECTORY}input_2.txt" # The path to the input file
+INPUT_FILE = f"{INPUT_DIRECTORY}input.txt" # The path to the input file
 OUTPUT_DIRECTORY = "./Outputs/" # The path to the output directory
 OUTPUT_FILE = f"{OUTPUT_DIRECTORY}output.txt" # The path to the output file
 
@@ -220,7 +219,6 @@ def main():
 
 	# Read the input file
 	input_data = read_input_file(INPUT_FILE)
-	# input_data2 = read_input_file(INPUT_FILE_2)
 
 	# Setup the context message
 	context_message = f"""
@@ -231,7 +229,7 @@ def main():
 
 	# Setup the task message
 	task_message = f""""
-	Please do what was asked in the previous message.
+	Please analyze the provided data.
 	"""
 
 	chat_session = start_chat_session(model, context_message) # Start the chat session

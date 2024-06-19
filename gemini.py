@@ -204,7 +204,7 @@ def main():
 
 	# Setup the task message
 	task_message = f""""
-	Please do what was asked in the previous message.
+	Please analyze the provided data.
 	"""
 
 	chat_session = start_chat_session(model, context_message) # Start the chat session
