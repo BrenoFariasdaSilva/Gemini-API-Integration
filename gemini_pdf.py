@@ -3,7 +3,6 @@ import fitz # For extracting text from PDF files
 import google.generativeai as genai # Import the Google AI Python SDK
 import numpy as np # For handling numerical data
 import os # For running a command in the terminal
-import pandas as pd # For handling CSV files
 import platform # For getting the operating system name
 import sys # For exiting the program
 import time # For sleeping the program
@@ -44,13 +43,9 @@ INPUT_DIRECTORY = "./Inputs/" # The path to the input directory
 OUTPUT_DIRECTORY = "./Outputs/" # The path to the output directory
 
 # File Path Constants:
-CSV_INPUT_FILE = "../PyDriller/metrics_statistics/zookeeper/substantial_CBO_classes_changes.csv" # The path to the input JSON file
 PDF_FILE = f"{INPUT_DIRECTORY}Curriculum.pdf" # The path to the PDF file
 OUTPUT_FILE = f"{OUTPUT_DIRECTORY}output.txt" # The path to the output file
 MOST_COMMON_OUTPUT_FILE = f"{OUTPUT_DIRECTORY}most_common_output.txt" # The path to the most common output file
-
-# Header Constants:
-DESIRED_HEADER = ["Class", "Method Invocations"] # The desired header of the CSV file
 
 def play_sound():
 	"""
@@ -153,30 +148,6 @@ def configure_model(api_key):
 
 	return model # Return the model
 
-def load_csv_file(file_path):
-	"""
-	Load and filter the CSV file by "Class" and "Method Invocations" fields.
-	:param file_path: Path to the CSV file.
-	:return: Filtered data as a string.
-	"""
- 
-	verbose_output(true_string=f"{BackgroundColors.GREEN}Loading the CSV file...{Style.RESET_ALL}")
-
-	if not os.path.exists(file_path):
-		print(f"{BackgroundColors.RED}The {BackgroundColors.CYAN}CSV file{BackgroundColors.RED} not found at {BackgroundColors.CYAN}{file_path}{Style.RESET_ALL}")
-		sys.exit(1) # Exit the program
-
-	df = pd.read_csv(file_path) # Load the CSV file
-
-	missing_columns = [col for col in DESIRED_HEADER if col not in df.columns] # Get the missing columns
-	if missing_columns: # If there are missing columns
-		print(f"{BackgroundColors.RED}The CSV file must contain {BackgroundColors.CYAN}{', '.join(missing_columns)}{BackgroundColors.RED} columns.{Style.RESET_ALL}")
-		sys.exit(1) # Exit the program
-
-	# Filter the data
-	filtered_data = df[DESIRED_HEADER].to_string(index=False) # Filter the data and convert it to a string
-	return filtered_data # Return the filtered data
-
 def read_pdf_file(file_path=PDF_FILE):
 	"""
 	Read the text from a PDF file.
@@ -211,16 +182,8 @@ def prepare_context_message(csv_data, pdf_content):
 	verbose_output(true_string=f"{BackgroundColors.GREEN}Preparing the context message...{Style.RESET_ALL}")
 
 	return f"""
-	Hi, Gemini. I will provide you a CSV file containing the following header:
-	'Class' field, which is the name of the corresponding class;
-	'Method Invocations' field, which is a list following the format: 'method_name of the current class[ invoked_method_name():number_of_invocations ... ]';
-
-	With that in mind, i want you to analyze each line of the CSV and try to relate the terms of the method invocations with topics of Distributed Systems education.
-	Here is the CSV data:
-	{csv_data}
-
-	Also, i have a PDF file containing the Curriculum Initiative on Parallel and Distributed Computing from NFS TCPP and i want you to relate the curriculum of Distributed System from the PDF with the CSV data.
-	Here is the PDF content:
+	Hi, Gemini.
+	Please analyze the following pdf content
 	{pdf_content}
 	"""
 
@@ -447,13 +410,10 @@ def main():
 	# Configure the model
 	model = configure_model(api_key)
 
-	# Load and filter the CSV file
-	csv_data = load_csv_file(CSV_INPUT_FILE)
-
 	# Read the PDF file
 	pdf_content = read_pdf_file(PDF_FILE)
 
-	context_message = prepare_context_message(csv_data, pdf_content) # Start chat session and send message
+	context_message = prepare_context_message(pdf_content) # Start chat session and send message
 	outputs = perform_runs_with_threading(model, context_message) # Perform the runs with threading
 	most_frequent_output = analyze_outputs(outputs) # Analyze the outputs
 
